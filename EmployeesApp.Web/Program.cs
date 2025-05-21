@@ -1,3 +1,6 @@
+using EmployeesApp.Web.LogFilter;
+using EmployeesApp.Web.Services;
+
 namespace EmployeesApp.Web
 {
     public class Program
@@ -6,9 +9,12 @@ namespace EmployeesApp.Web
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSingleton<IEmployeeService, OtherEmployeeService>();
+            builder.Services.AddScoped<LogFilterAttribute>();
             var app = builder.Build();
             app.UseStaticFiles();
             app.MapControllers();
+
             app.Run();
         }
     }
